@@ -17,7 +17,7 @@ class MercadoPagoService {
                     coffeeId
                 },
                 back_urls: {
-                    success: "https://cafecito.damiancatanzaro.com"
+                    success: "https://cafecito.mtprz.dev"
                 },
                 auto_return: "approved",
                 payment_methods: {

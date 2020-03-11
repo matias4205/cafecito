@@ -256,7 +256,7 @@ class Home extends React.Component {
                     </div>
                     <div className={style.profile}>
                         <div className={style.profileImg}></div>
-                        <span>@DamianCatanzaro</span>
+                        <span>@MatiasPerez4205</span>
                     </div>
 
                     <div className={style.buttonShare}>
