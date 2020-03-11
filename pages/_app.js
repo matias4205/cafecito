@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }) {
     return (
         <>
             <Head>
-                <title>Damián Catanzaro | Cafecito</title>
+                <title>Matias Perez | Cafecito</title>
             </Head>
             <Component {...pageProps} />
         </>
