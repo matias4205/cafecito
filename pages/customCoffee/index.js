@@ -105,8 +105,6 @@ class CustomCoffee extends Component {
         return (
             <div className={styles.main}>
                 <div className={styles.modalContainer}>
-                    <RedirectIcon url="/" />
-
                     <ProfileImg imgSrc="https://avatars2.githubusercontent.com/u/43894343?s=460&v=4" />
 
                     <div className={styles.contentContainer}>
