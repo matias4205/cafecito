@@ -48,6 +48,25 @@ class CustomCoffee extends Component {
             countCoffees: 1,
             loading: true,
         };
+
+        if (process.browser) {
+            const localStorageDarkMode = window.localStorage.getItem(
+                "darkMode"
+            );
+
+            if (localStorageDarkMode) {
+                document.body.dataset.theme = localStorageDarkMode;
+            } else {
+                const prefersDark = window.matchMedia(
+                    "(prefers-color-scheme: dark)"
+                ).matches;
+
+                const theme = prefersDark ? "dark" : "light";
+
+                window.localStorage.setItem("darkMode", theme);
+                document.body.dataset.theme = theme;
+            }
+        }
     }
 
     sendCoffee = async () => {
@@ -90,24 +109,33 @@ class CustomCoffee extends Component {
 
                     <ProfileImg imgSrc="https://avatars2.githubusercontent.com/u/43894343?s=460&v=4" />
 
-                    <h1 className={styles.title}>{title}</h1>
-                    <h3 className={styles.description}>{description}</h3>
+                    <div className={styles.contentContainer}>
+                        <RedirectIcon url="/" />
 
-                    <CoffePicker
-                        countCoffees={countCoffees}
-                        setCount={this.setCount}
-                    />
+                        <h1 className={styles.title}>{title}</h1>
+                        <h3 className={styles.description}>{description}</h3>
 
-                    <input
-                        className={styles.input}
-                        placeholder="Nombre o @Twitter (opcional)"
-                        value={name}
-                        onChange={this.handleFormChange}
-                        type="text"
-                    />
-                    <button className={styles.submit} onClick={this.sendCoffee}>
-                        Invitame 1 café (${countCoffees * COFFEE_PRICE})
-                    </button>
+                        <CoffePicker
+                            countCoffees={countCoffees}
+                            setCount={this.setCount}
+                        />
+
+                        <input
+                            className={styles.input}
+                            placeholder="Nombre o @Twitter (opcional)"
+                            value={name}
+                            onChange={this.handleFormChange}
+                            type="text"
+                        />
+                        <button
+                            className={styles.submit}
+                            onClick={this.sendCoffee}
+                        >
+                            Invitame {countCoffees}{" "}
+                            {countCoffees > 1 ? "cafés" : "café"} ($
+                            {countCoffees * COFFEE_PRICE})
+                        </button>
+                    </div>
                 </div>
             </div>
         );
