@@ -25,9 +25,9 @@ const HeadCustom = ({ share }) => (
         <meta property="og:type" content="website" />
         <meta name="robots" content="noodp" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@MatiasPerez4205" />
+        <meta name="twitter:site" content="@matiasperz_" />
         <meta property="twitter:title" content="Matias Perez | Cafecito" />
-        <meta name="twitter:creator" content="@MatiasPerez4205" />
+        <meta name="twitter:creator" content="@matiasperz_" />
         <meta name="twitter:description" content="" />
 
         {share && share._id && (

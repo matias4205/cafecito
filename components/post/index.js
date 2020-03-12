@@ -1,100 +1,68 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import style from "./style.scss";
+
+
+const LinkNewTab = ({ children, to }) => (
+    <a
+        href={to}
+        target="_blank"
+        rel="noreferrer noopener"
+    >
+        { children }
+    </a>
+)
+
+LinkNewTab.propTypes = {
+    children: PropTypes.string,
+    to: PropTypes.string,
+}
 
 const Post = () => (
     <div className={style.postContainer}>
         <div className={style.post}>
             <p>
-                Hola! Soy <strong>Damián Catanzaro</strong>, actualmente trabajo
-                como Tech Lead en Digiventures, una startup FinTech.
+                Hola! Soy <strong>Matias Perez</strong>.
             </p>
 
             <p>
-                💻 Estoy hace más de 10 años en el mundo de sistemas,
-                principalmente centrado en lo que es web, tanto desarrollo
-                FrontEnd como BackEnd.
+                📖 Terminé el secundario técnico en 2019 y planeo estudiar <strong>&quot;Ciencias
+                de la computación&quot;</strong> en la <strong>UBA</strong>.
             </p>
 
             <p>
-                A principio de este año me propuse hacer crecer mi perfil
-                ayudando a la comunidad de sistemas, para esto creé un blog en
-                donde estoy subiendo serie de tutoriales, ya sean desde 0 o
-                avanzados, para todos los niveles.
+                Este año tengo como meta comenzar mi blog, en el cual planeo hacer tutoriales de todo lo que voy 
+                aprendiendo en el mundo de sistemas (en este momento esta 
+                en construccion 🔨).
             </p>
 
             <p>
-                Blog:{" "}
-                <a
-                    href="https://damiancatanzaro.com/blog/"
-                    target="_blank"
-                    rel="noreferrer noopener"
-                >
-                    https://damiancatanzaro.com/blog/
-                </a>
+                <strong>Blog:</strong> <LinkNewTab to="https://mtprz.dev/blog/">https://mtprz.dev/blog/</LinkNewTab>
             </p>
 
             <p>
-                Y además estoy en constante aporte en mi Twitter:{" "}
-                <a
-                    href="https://twitter.com/DamianCatanzaro"
-                    target="_blank"
-                    rel="noreferrer noopener"
-                >
-                    @DamianCatanzaro
-                </a>{" "}
-                dando una mano a quien necesite y creando nuevos proyectos
-                OpenSources.
+                Me gusta pasar mi tiempo libre en <LinkNewTab to="https://platzi.com/">Platzi </LinkNewTab>
+                o ayudando en algun que otro proyecto OpenSource, actualmente me encuentro dando
+                una mano en <LinkNewTab to="https://github.com/dcatanzaro/cafecito">Cafecito</LinkNewTab> ☕,
+                el resto del tiempo lo pierdo en Twitter... seguime 😉 
+                <LinkNewTab to="https://twitter.com/matiasperz_">@matiasperz_</LinkNewTab>.
             </p>
 
             <p>
-                <u>Algunos de los últimos proyectos creados:</u>
+                Si tenes ganas de ver o clonarte algunos de los proyectos que tengo subidos te dejo mi Github que es donde suelto toda mi magia.
             </p>
+            
             <p>
-                <strong>Anon Q&A:</strong>{" "}
-                <a
-                    href="https://anon.damiancatanzaro.com/"
-                    target="_blank"
-                    rel="noreferrer noopener"
-                >
-                    https://anon.damiancatanzaro.com/
-                </a>
+                <strong>Github:</strong> ✨<LinkNewTab to="https://github.com/matias4205">https://github.com/matias4205</LinkNewTab>✨.
             </p>
+            
             <p>
-                <strong>Calendar de Sistemas:</strong>{" "}
-                <a
-                    href="https://damiancatanzaro.com/calendar"
-                    target="_blank"
-                    rel="noreferrer noopener"
-                >
-                    https://damiancatanzaro.com/calendar
-                </a>
-            </p>
-
-            <p>
-                <strong>Y obvio, Cafecito ☕️!:</strong>{" "}
-                <a
-                    href="https://cafecito.damiancatanzaro.com"
-                    target="_blank"
-                    rel="noreferrer noopener"
-                >
-                    https://cafecito.damiancatanzaro.com/
-                </a>
-            </p>
-
-            <p>
-                Si querés ver, clonarte o aportar a algunos de estos proyectos,
-                están todos en mi{" "}
-                <a href="https://github.com/dcatanzaro">GitHub</a>.
-            </p>
-
-            <p>
-                Si tenés ganas de darme una mano podés regalarme un café ☕️ y
+                Queres darme una mano? Podés regalarme un café ☕️ y
                 te lo super voy a agradecer! ❤️
             </p>
             <p>
-                Y si querés podés dejar tu nombre y un mensaje para que quede
-                guardado y sepa quien me está ayudando!
+               También podés dejar tu nombre o twitter y un mensaje asi se quien sos 😃.
             </p>
         </div>
     </div>
