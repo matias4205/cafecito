@@ -40,7 +40,7 @@ class CoffeeController {
         });
 
         const paymentLink = await this.mercadoPagoService.createPayment(
-            "Cafecito | Damián Catanzaro",
+            "Cafecito | Matias Perez",
             this.coffeePrice * countCoffees,
             result._id
         );
