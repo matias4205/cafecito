@@ -23,6 +23,7 @@ const Header = ({ countCoffees, prefersDark, ...props }) => {
                 </div>
 
                 <FontAwesomeIcon
+                    key={Math.random()}
                     icon={prefersDark === "dark" ? moonSolid : moonRegular}
                     className={style.darkMode}
                     onClick={() => {
