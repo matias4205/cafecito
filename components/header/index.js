@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import style from "./style.scss";
@@ -8,17 +8,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon as moonSolid } from "@fortawesome/free-solid-svg-icons";
 import { faMoon as moonRegular } from "@fortawesome/free-regular-svg-icons";
 
-const Header = ({ countCoffees, prefersDark }) => {
-    const [darkMode, setDarkMode] = useState("");
-
-    useEffect(() => {
-        if (!darkMode) {
-            setDarkMode(prefersDark);
-        }
-
-        window.localStorage.setItem("darkMode", darkMode);
-        document.body.dataset.theme = darkMode || prefersDark;
-    }, [darkMode]);
+const Header = ({ countCoffees, prefersDark, ...props }) => {
+    const { setTheme } = props;
 
     return (
         <header className={style.headerContainer}>
@@ -32,10 +23,10 @@ const Header = ({ countCoffees, prefersDark }) => {
                 </div>
 
                 <FontAwesomeIcon
-                    icon={darkMode == "dark" ? moonSolid : moonRegular}
+                    icon={prefersDark === "dark" ? moonSolid : moonRegular}
                     className={style.darkMode}
                     onClick={() => {
-                        setDarkMode(darkMode === "dark" ? "light" : "dark");
+                        setTheme(prefersDark === "dark" ? "light" : "dark");
                     }}
                     width="22"
                 />
@@ -51,6 +42,7 @@ const Header = ({ countCoffees, prefersDark }) => {
 Header.propTypes = {
     countCoffees: PropTypes.number,
     prefersDark: PropTypes.string,
+    setTheme: PropTypes.func,
 };
 
 export default Header;

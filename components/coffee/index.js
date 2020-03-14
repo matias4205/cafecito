@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import style from "./style.scss";
 import PropTypes from "prop-types";
-import axios from "axios";
 import dayjs from "dayjs";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShareAlt } from "@fortawesome/free-solid-svg-icons";
+
+import { sendAnswer, deleteCoffee } from '../../utils/api';
+const API = { sendAnswer, deleteCoffee }
 
 const Coffee = ({ setShare, coffee, loadNewCoffees, password, isAdmin }) => {
     const [isOpenTextInput, setIsOpenTextInput] = useState(false);
@@ -16,41 +18,30 @@ const Coffee = ({ setShare, coffee, loadNewCoffees, password, isAdmin }) => {
         setAnswer(coffee.answer || "");
     };
 
-    const sendAnswer = async idCoffee => {
+    const _sendAnswer = async (idCoffee) => {
         if (!answer.length) {
             return;
         }
-
+    
         setAnswer("");
         setIsOpenTextInput(false);
 
-        const url = `${process.env.URL}/api/send_answer`;
-
-        await axios.post(url, {
-            answer,
-            password,
-            idCoffee,
-        });
+        await API.sendAnswer({ idCoffee, answer, password });
 
         loadNewCoffees();
-    };
-
-    const deleteMessage = async idCoffee => {
+    }
+    
+    const _deleteCoffee = async (idCoffee) => {
         const confirmDelete = window.confirm(
             `¿Estás seguro que querés borrar el mensaje?`
         );
 
         if (confirmDelete) {
-            const url = `${process.env.URL}/api/delete_coffee`;
-
-            await axios.post(url, {
-                password,
-                idCoffee,
-            });
-
-            loadNewCoffees();
+            await API.deleteCoffee({ idCoffee, password });
         }
-    };
+
+        loadNewCoffees();
+    }
 
     const { SHOW_DATE_COFFEE } = process.env;
 
@@ -94,7 +85,7 @@ const Coffee = ({ setShare, coffee, loadNewCoffees, password, isAdmin }) => {
                             </button>
                             <button
                                 className={style.dangerButton}
-                                onClick={() => deleteMessage(coffee._id)}
+                                onClick={() => _deleteCoffee(coffee._id)}
                             >
                                 Borrar
                             </button>
@@ -108,7 +99,7 @@ const Coffee = ({ setShare, coffee, loadNewCoffees, password, isAdmin }) => {
                                     setAnswer(e.target.value);
                                 }}
                             ></textarea>
-                            <button onClick={() => sendAnswer(coffee._id)}>
+                            <button onClick={() => _sendAnswer(coffee._id)}>
                                 Enviar
                             </button>
                         </>
