@@ -4,8 +4,9 @@ const compression = require("compression");
 const bodyParser = require("body-parser");
 
 const routes = require("./routes");
-const { config: { isDev, PORT, URL } } = require('./config');
-
+const {
+    config: { isDev, PORT, URL },
+} = require("./config");
 
 const app = next({ dev: isDev });
 const handler = routes.getRequestHandler(app);
@@ -26,7 +27,7 @@ mongoose.connect(urlMongo, {
     useFindAndModify: false,
 });
 
-const TelegramService = require('./server/services/TelegramService');
+const TelegramService = require("./server/services/TelegramService");
 const TelegramServiceInstance = new TelegramService();
 
 const MercadoPagoService = require("./server/services/MercadoPagoService");
@@ -72,7 +73,5 @@ app.prepare().then(() => {
 
     server.listen(PORT);
 
-    console.log(
-        `Server started on port ${PORT} | Url: ${URL}`
-    );
+    console.log(`Server started on port ${PORT} | Url: ${URL}`);
 });

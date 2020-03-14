@@ -18,18 +18,18 @@ const dbConfig = {
     DB_USER: process.env.DB_USER,
     DB_PASS: process.env.DB_PASS,
     DB_NAME: process.env.DB_NAME,
-}
+};
 
 const telegramConfig = {
     BOT_ID: process.env.TELEGRAM_BOTID,
     CHAT_ID: process.env.TELEGRAM_CHATID,
-}
+};
 
 const cafeConfig = {
     FIRST_NAME: process.env.FIRST_NAME,
     LAST_NAME: process.env.LAST_NAME,
     TWITTER: process.env.TWITTER,
     SHOW_DATE_COFFEE: process.env.SHOW_DATE_COFFEE,
-}
+};
 
 module.exports = { config, dbConfig, telegramConfig, cafeConfig };

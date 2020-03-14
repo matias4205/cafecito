@@ -1,8 +1,10 @@
-const axios = require('axios');
+const axios = require("axios");
 
-const { telegramConfig: { BOT_ID, CHAT_ID } } = require('../../config');
+const {
+    telegramConfig: { BOT_ID, CHAT_ID },
+} = require("../../config");
 
-const BASE_API = 'https://api.telegram.org';
+const BASE_API = "https://api.telegram.org";
 
 class Telegram {
     sendTelegramMessage(message) {
