@@ -11,14 +11,18 @@ const checkShemePreference = () => {
 
 export const useTheme = () => {
     const [theme, _setTheme] = useState(() => {
-        try {
-            const theme = window.localStorage.getItem("darkMode");
-            return theme !== null ? JSON.parse(theme) : checkShemePreference(); // <-- LocalStorage can only save data as plain text
-        } catch {
-            return checkShemePreference();
+        if (process.browser){
+            try {
+                const theme = window.localStorage.getItem("darkMode");
+                return theme !== null ? JSON.parse(theme) : checkShemePreference(); // <-- LocalStorage can only save data as plain text
+            } catch {
+                return checkShemePreference();
+            }
+        } else {
+            return 'light';
         }
     });
-
+    
     const setTheme = value => {
         try {
             window.localStorage.setItem("darkMode", JSON.stringify(value));

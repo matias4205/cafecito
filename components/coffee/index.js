@@ -6,8 +6,8 @@ import dayjs from "dayjs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShareAlt } from "@fortawesome/free-solid-svg-icons";
 
-import { sendAnswer, deleteCoffee } from '../../utils/api';
-const API = { sendAnswer, deleteCoffee }
+import { sendAnswer, deleteCoffee } from "../../utils/api";
+const API = { sendAnswer, deleteCoffee };
 
 const Coffee = ({ setShare, coffee, loadNewCoffees, password, isAdmin }) => {
     const [isOpenTextInput, setIsOpenTextInput] = useState(false);
@@ -18,20 +18,20 @@ const Coffee = ({ setShare, coffee, loadNewCoffees, password, isAdmin }) => {
         setAnswer(coffee.answer || "");
     };
 
-    const _sendAnswer = async (idCoffee) => {
+    const _sendAnswer = async idCoffee => {
         if (!answer.length) {
             return;
         }
-    
+
         setAnswer("");
         setIsOpenTextInput(false);
 
         await API.sendAnswer({ idCoffee, answer, password });
 
         loadNewCoffees();
-    }
-    
-    const _deleteCoffee = async (idCoffee) => {
+    };
+
+    const _deleteCoffee = async idCoffee => {
         const confirmDelete = window.confirm(
             `¿Estás seguro que querés borrar el mensaje?`
         );
@@ -41,7 +41,7 @@ const Coffee = ({ setShare, coffee, loadNewCoffees, password, isAdmin }) => {
         }
 
         loadNewCoffees();
-    }
+    };
 
     const { SHOW_DATE_COFFEE } = process.env;
 

@@ -9,10 +9,10 @@ import Coffee from "../../components/coffee/index";
 import Post from "../../components/post/index";
 import Modal from "../../components/modal/index";
 
-import { useTheme } from '../../hooks/useTheme';
+import { useTheme } from "../../hooks/useTheme";
 
-import { fetchCoffees, fetchCoffee } from '../../utils/api';
-import queryConvert from '../../utils/queryConvert';
+import { fetchCoffees, fetchCoffee } from "../../utils/api";
+import queryConvert from "../../utils/queryConvert";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
@@ -20,14 +20,14 @@ import { faCopy } from "@fortawesome/free-solid-svg-icons";
 
 import style from "./style.scss";
 
-const API = { fetchCoffees, fetchCoffee }
+const API = { fetchCoffees, fetchCoffee };
 
-const Home = (props) => {
+const Home = props => {
     const { coffees: preFetchedCoffees, showThankYou, query } = props;
-    
-    const [ coffees, setCoffees ] = useState(preFetchedCoffees);
-    const [ theme, setTheme ] = useTheme();
-    const [ state, setState ] = useState(() => {
+
+    const [coffees, setCoffees] = useState(preFetchedCoffees);
+    const [theme, setTheme] = useTheme();
+    const [state, setState] = useState(() => {
         let coffeeShare = "";
 
         if (query.coffee === "coffee" && query.id) {
@@ -110,20 +110,14 @@ const Home = (props) => {
         });
     };
 
-    const {
-        isAdmin,
-        password,
-        openModal,
-        openModalShare,
-        share,
-    } = state;
+    const { isAdmin, password, openModal, openModalShare, share } = state;
 
     const { SHOW_DATE_COFFEE } = process.env;
 
     return (
         <>
             <HeadCustom share={share} />
-            
+
             <Header
                 countCoffees={coffees.countCoffees}
                 prefersDark={theme}
@@ -134,7 +128,7 @@ const Home = (props) => {
             <h3 className={style.titleDescription}>Descripción</h3>
 
             <Post />
-            
+
             <h3 className={style.title}>Cafés</h3>
             {coffees.coffees.map((coffee, key) => (
                 <Coffee
@@ -159,8 +153,8 @@ const Home = (props) => {
                 nameModal="openModal"
                 openModalCreateEvent={openModalCreateEvent}
             >
-                OMG! What!? Gracias por haberme ayudado! Lo valoro
-                muchisimo! ❤️. Happy coding ✨.
+                OMG! What!? Gracias por haberme ayudado! Lo valoro muchisimo!
+                ❤️. Happy coding ✨.
                 <img
                     width="100%"
                     src="https://media2.giphy.com/media/vFKqnCdLPNOKc/giphy.gif"
@@ -201,22 +195,19 @@ const Home = (props) => {
                         className={style.buttonTwitter}
                         onClick={() => shareTwitter()}
                     >
-                        <FontAwesomeIcon icon={faTwitter} width="14" />{" "}
-                        Twitter
+                        <FontAwesomeIcon icon={faTwitter} width="14" /> Twitter
                     </button>
                     <button
                         className={style.buttonCopy}
                         onClick={() => copyLink()}
                     >
-                        <FontAwesomeIcon icon={faCopy} width="14" /> Copiar
-                        Link
+                        <FontAwesomeIcon icon={faCopy} width="14" /> Copiar Link
                     </button>
                 </div>
             </Modal>
         </>
     );
-}
-
+};
 
 Home.getInitialProps = async ({ query }) => {
     const externalReference = query.external_reference;
@@ -226,7 +217,7 @@ Home.getInitialProps = async ({ query }) => {
     if (externalReference) {
         const { coffeeId } = JSON.parse(externalReference);
 
-        const result = fetchCoffee(coffeeId)
+        const result = fetchCoffee(coffeeId);
 
         return {
             coffees,
@@ -236,7 +227,7 @@ Home.getInitialProps = async ({ query }) => {
     }
 
     return { coffees, showThankYou: false, query };
-}
+};
 
 Home.propTypes = {
     coffees: PropTypes.object,

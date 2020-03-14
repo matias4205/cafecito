@@ -1,7 +1,5 @@
-require('dotenv')();
+require("dotenv")();
 
-const config = {
-    
-}
+const config = {};
 
 export default { config };
