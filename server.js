@@ -1,19 +1,14 @@
-const dotenv = require("dotenv");
-const isDev = process.env.NODE_ENV !== "production";
-
-const envFile = isDev ? `.env.${process.env.NODE_ENV}` : ".env";
-dotenv.config({ path: envFile });
-
 const next = require("next");
+const mongoose = require("mongoose");
+const compression = require("compression");
+const bodyParser = require("body-parser");
+
 const routes = require("./routes");
+const { config: { isDev, PORT, URL } } = require('./config');
+
 
 const app = next({ dev: isDev });
 const handler = routes.getRequestHandler(app);
-const bodyParser = require("body-parser");
-const axios = require("axios");
-const compression = require("compression");
-
-const mongoose = require("mongoose");
 
 let urlMongo = "";
 
@@ -31,23 +26,8 @@ mongoose.connect(urlMongo, {
     useFindAndModify: false,
 });
 
-class Telegram {
-    sendTelegramMessage(message) {
-        const botId = process.env.TELEGRAM_BOTID;
-        const chatId = process.env.TELEGRAM_CHATID;
-
-        if (!botId || !chatId) {
-            return;
-        }
-
-        const telegramMsg = encodeURIComponent(message);
-
-        const url = `https://api.telegram.org/${botId}/sendMessage?chat_id=${chatId}&text=${telegramMsg}`;
-        axios.get(url);
-    }
-}
-
-const telegram = new Telegram();
+const TelegramService = require('./server/services/TelegramService');
+const TelegramServiceInstance = new TelegramService();
 
 const MercadoPagoService = require("./server/services/MercadoPagoService");
 const MercadoPagoServiceInstance = new MercadoPagoService();
@@ -57,7 +37,7 @@ const CoffeeServiceInstance = new CoffeeService();
 
 const CoffeeController = require("./server/controllers/CoffeeController");
 const CoffeeInstance = new CoffeeController(
-    telegram,
+    TelegramServiceInstance,
     CoffeeServiceInstance,
     MercadoPagoServiceInstance
 );
@@ -90,9 +70,9 @@ app.prepare().then(() => {
 
     server.use(handler);
 
-    server.listen(process.env.PORT);
+    server.listen(PORT);
 
     console.log(
-        `Server started on port ${process.env.PORT} | Url: ${process.env.URL}`
+        `Server started on port ${PORT} | Url: ${URL}`
     );
 });
