@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Head from "next/head";
 
-import { cafeConfig } from '../config';
+import { cafeConfig } from "../config";
 
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import "../styles/style.scss";
@@ -16,7 +16,9 @@ function MyApp({ Component, pageProps }) {
     return (
         <>
             <Head>
-                <title>{FIRST_NAME} {LAST_NAME} | Cafecito</title>
+                <title>
+                    {FIRST_NAME} {LAST_NAME} | Cafecito
+                </title>
             </Head>
             <Component {...pageProps} />
         </>

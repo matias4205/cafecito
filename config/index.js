@@ -8,5 +8,5 @@ export const cafeConfig = {
 
 export const config = {
     URL: process.env.URL,
-    BRANCH: process.env.BRANCH
-}
+    BRANCH: process.env.BRANCH,
+};

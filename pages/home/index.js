@@ -187,7 +187,7 @@ const Home = props => {
                 </div>
                 <div className={style.profile}>
                     <div className={style.profileImg}>
-                        <img src={PROFILE_PHOTO} alt="profile"/>
+                        <img src={PROFILE_PHOTO} alt="profile" />
                     </div>
                     <span>{`@${TWITTER}`}</span>
                 </div>

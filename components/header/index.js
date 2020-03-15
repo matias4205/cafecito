@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Follow } from "react-twitter-widgets";
 
-import { cafeConfig } from '../../config';
+import { cafeConfig } from "../../config";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon as moonSolid } from "@fortawesome/free-solid-svg-icons";
@@ -19,7 +19,7 @@ const Header = ({ countCoffees, prefersDark, ...props }) => {
         <header className={style.headerContainer}>
             <div className={style.header}>
                 <div className={style.profileImg}>
-                    <img src={PROFILE_PHOTO} alt=""/>
+                    <img src={PROFILE_PHOTO} alt="" />
                 </div>
                 <div className={style.informationContainer}>
                     <div className={style.name}>{`@${TWITTER}`}</div>

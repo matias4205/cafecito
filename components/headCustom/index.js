@@ -31,7 +31,10 @@ const HeadCustom = ({ share }) => (
         <meta name="robots" content="noodp" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content={`@${TWITTER}`} />
-        <meta property="twitter:title" content={`${FIRST_NAME} ${LAST_NAME} | Cafecito`} />
+        <meta
+            property="twitter:title"
+            content={`${FIRST_NAME} ${LAST_NAME} | Cafecito`}
+        />
         <meta name="twitter:creator" content={`@${TWITTER}`} />
         <meta name="twitter:description" content="" />
 
@@ -42,7 +45,10 @@ const HeadCustom = ({ share }) => (
             />
         )}
 
-        <meta itemProp="name" content={`${FIRST_NAME} ${LAST_NAME} | Cafecito`} />
+        <meta
+            itemProp="name"
+            content={`${FIRST_NAME} ${LAST_NAME} | Cafecito`}
+        />
         <meta itemProp="description" content="" />
 
         {share && share._id && (
