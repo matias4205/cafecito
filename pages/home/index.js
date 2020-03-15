@@ -1,28 +1,22 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import dayjs from "dayjs";
 
-import HeadCustom from "../../components/headCustom/index";
-import Header from "../../components/header/index";
-import InputText from "../../components/inputText/index";
-import Coffee from "../../components/coffee/index";
-import Post from "../../components/post/index";
-import Modal from "../../components/modal/index";
+import HeadCustom from "../../components/headCustom";
+import Header from "../../components/header";
+import InputText from "../../components/inputText";
+import Coffee from "../../components/coffee";
+import Post from "../../components/post";
+import ThanksModal from "../../components/thanksModal";
+import ShareModal from "../../components/shareModal";
 
 import { useTheme } from "../../hooks/useTheme";
 
 import { fetchCoffees, fetchCoffee } from "../../utils/api";
 import queryConvert from "../../utils/queryConvert";
-import { cafeConfig } from "../../config";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { faCopy } from "@fortawesome/free-solid-svg-icons";
 
 import style from "./style.scss";
 
 const API = { fetchCoffees, fetchCoffee };
-const { SHOW_DATE_COFFEE, PROFILE_PHOTO, TWITTER } = cafeConfig;
 
 const Home = props => {
     const { coffees: preFetchedCoffees, showThankYou, query } = props;
@@ -71,39 +65,6 @@ const Home = props => {
         });
     };
 
-    const shareTwitter = () => {
-        const { share } = state;
-        const linkToGo = `${process.env.URL}/coffee/${share._id}`;
-
-        window.open(
-            `https://twitter.com/intent/tweet?text=${linkToGo}`,
-            "targetWindow",
-            "toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250"
-        );
-        return false;
-    };
-
-    const copyLink = () => {
-        const { share } = state;
-        const linkToGo = `${process.env.URL}/coffee/${share._id}`;
-
-        if (typeof navigator.clipboard == "undefined") {
-            const textArea = document.createElement("textarea");
-            textArea.value = linkToGo;
-            textArea.style.position = "fixed";
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-
-            document.execCommand("copy");
-
-            document.body.removeChild(textArea);
-            return;
-        }
-
-        navigator.clipboard.writeText(linkToGo);
-    };
-
     const setShare = coffee => {
         setState({
             ...state,
@@ -123,10 +84,10 @@ const Home = props => {
                 prefersDark={theme}
                 setTheme={setTheme}
             />
+
             <InputText />
 
             <h3 className={style.titleDescription}>Descripción</h3>
-
             <Post />
 
             <h3 className={style.title}>Cafés</h3>
@@ -147,66 +108,16 @@ const Home = props => {
                 </div>
             )}
 
-            <Modal
-                title="¡Gracias!"
+            <ThanksModal
                 openModal={openModal}
-                nameModal="openModal"
                 openModalCreateEvent={openModalCreateEvent}
-            >
-                OMG! What!? Gracias por haberme ayudado! Lo valoro muchisimo!
-                ❤️. Happy coding ✨.
-                <img
-                    width="100%"
-                    src="https://media2.giphy.com/media/vFKqnCdLPNOKc/giphy.gif"
-                    alt=""
-                />
-            </Modal>
+            />
 
-            <Modal
-                title="Compartir"
-                openModal={openModalShare}
-                nameModal="openModalShare"
+            <ShareModal
+                share={share}
+                openModalShare={openModalShare}
                 openModalCreateEvent={openModalCreateEvent}
-            >
-                <div className={style.q}>
-                    <div className={style.name}>
-                        {share.name ? share.name : "Anónimo"}
-                        <span>
-                            {` regaló ${share.countCoffees} ${
-                                share.countCoffees > 1 ? "cafés" : "café"
-                            }`}
-                            {SHOW_DATE_COFFEE &&
-                                ` el ${dayjs(share.createdAt).format(
-                                    "DD-MM-YYYY"
-                                )}`}
-                        </span>
-                    </div>
-                    {share.message && (
-                        <span className={style.text}>{share.message}</span>
-                    )}
-                </div>
-                <div className={style.profile}>
-                    <div className={style.profileImg}>
-                        <img src={PROFILE_PHOTO} alt="profile" />
-                    </div>
-                    <span>{`@${TWITTER}`}</span>
-                </div>
-
-                <div className={style.buttonShare}>
-                    <button
-                        className={style.buttonTwitter}
-                        onClick={() => shareTwitter()}
-                    >
-                        <FontAwesomeIcon icon={faTwitter} width="14" /> Twitter
-                    </button>
-                    <button
-                        className={style.buttonCopy}
-                        onClick={() => copyLink()}
-                    >
-                        <FontAwesomeIcon icon={faCopy} width="14" /> Copiar Link
-                    </button>
-                </div>
-            </Modal>
+            />
         </>
     );
 };
