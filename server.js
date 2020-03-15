@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const routes = require("./routes");
 const {
     config: { isDev, PORT, URL },
-} = require("./config");
+} = require("./server/config");
 
 const app = next({ dev: isDev });
 const handler = routes.getRequestHandler(app);

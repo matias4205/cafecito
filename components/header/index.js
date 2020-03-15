@@ -1,12 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
-
-import style from "./style.scss";
 import { Follow } from "react-twitter-widgets";
+
+import { cafeConfig } from '../../config';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon as moonSolid } from "@fortawesome/free-solid-svg-icons";
 import { faMoon as moonRegular } from "@fortawesome/free-regular-svg-icons";
+
+import style from "./style.scss";
+
+const { TWITTER, PROFILE_PHOTO } = cafeConfig;
 
 const Header = ({ countCoffees, prefersDark, ...props }) => {
     const { setTheme } = props;
@@ -14,9 +18,11 @@ const Header = ({ countCoffees, prefersDark, ...props }) => {
     return (
         <header className={style.headerContainer}>
             <div className={style.header}>
-                <div className={style.profileImg}></div>
+                <div className={style.profileImg}>
+                    <img src={PROFILE_PHOTO} alt=""/>
+                </div>
                 <div className={style.informationContainer}>
-                    <div className={style.name}>@DamianCatanzaro</div>
+                    <div className={style.name}>{`@${TWITTER}`}</div>
                     <div className={style.countCoffees}>
                         {countCoffees} cafecitos ☕️
                     </div>
@@ -34,7 +40,7 @@ const Header = ({ countCoffees, prefersDark, ...props }) => {
             </div>
 
             <div className={style.twitter}>
-                <Follow username="DamianCatanzaro" />
+                <Follow username={TWITTER} />
             </div>
         </header>
     );

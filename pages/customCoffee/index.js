@@ -6,6 +6,9 @@ import CoffePicker from "../../components/coffeePicker";
 
 import styles from "./style.scss";
 
+import { cafeConfig } from "../../config";
+
+const { PROFILE_PHOTO } = cafeConfig;
 const COFFEE_PRICE = 50;
 
 const ProfileImg = ({ imgSrc }) => (
@@ -105,7 +108,7 @@ class CustomCoffee extends Component {
         return (
             <div className={styles.main}>
                 <div className={styles.modalContainer}>
-                    <ProfileImg imgSrc="https://avatars2.githubusercontent.com/u/3155693?s=460&v=4" />
+                    <ProfileImg imgSrc={PROFILE_PHOTO} />
 
                     <div className={styles.contentContainer}>
                         <RedirectIcon url="/" />

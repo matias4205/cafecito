@@ -2,7 +2,7 @@ const axios = require("axios");
 
 const {
     telegramConfig: { BOT_ID, CHAT_ID },
-} = require("../../config");
+} = require("../config");
 
 const BASE_API = "https://api.telegram.org";
 

@@ -13,6 +13,7 @@ import { useTheme } from "../../hooks/useTheme";
 
 import { fetchCoffees, fetchCoffee } from "../../utils/api";
 import queryConvert from "../../utils/queryConvert";
+import { cafeConfig } from "../../config";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
@@ -21,6 +22,7 @@ import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import style from "./style.scss";
 
 const API = { fetchCoffees, fetchCoffee };
+const { SHOW_DATE_COFFEE, PROFILE_PHOTO, TWITTER } = cafeConfig;
 
 const Home = props => {
     const { coffees: preFetchedCoffees, showThankYou, query } = props;
@@ -112,8 +114,6 @@ const Home = props => {
 
     const { isAdmin, password, openModal, openModalShare, share } = state;
 
-    const { SHOW_DATE_COFFEE } = process.env;
-
     return (
         <>
             <HeadCustom share={share} />
@@ -186,8 +186,10 @@ const Home = props => {
                     )}
                 </div>
                 <div className={style.profile}>
-                    <div className={style.profileImg}></div>
-                    <span>@DamianCatanzaro</span>
+                    <div className={style.profileImg}>
+                        <img src={PROFILE_PHOTO} alt="profile"/>
+                    </div>
+                    <span>{`@${TWITTER}`}</span>
                 </div>
 
                 <div className={style.buttonShare}>
