@@ -1,15 +1,18 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
 
 import CoffePicker from "../../components/coffeePicker";
 
+import { useTheme } from "../../hooks/useTheme";
+
 import styles from "./style.scss";
 
+import { sendCoffee } from "../../utils/api";
 import { cafeConfig } from "../../config";
 
 const { PROFILE_PHOTO } = cafeConfig;
 const COFFEE_PRICE = 50;
+const API = { sendCoffee };
 
 const ProfileImg = ({ imgSrc }) => (
     <div className={styles.profileImg}>
@@ -23,125 +26,88 @@ const RedirectIcon = ({ url }) => (
     </a>
 );
 
-class CustomCoffee extends Component {
-    static async getInitialProps({ query }) {
-        const title = query.title || "";
-        const description = query.description || "";
-        const message = query.message || "";
+const CustomCoffee = ({ title, description, message }) => {
+    useTheme();
+    const [state, setState] = useState({
+        name: "",
+        countCoffees: 1,
+        loading: false,
+    });
 
-        return { title, description, message };
-    }
+    const sendCoffee = async () => {
+        const { name, countCoffees } = state;
 
-    static propTypes = {
-        title: PropTypes.string,
-        description: PropTypes.string,
-        message: PropTypes.string,
-    };
-
-    constructor(props) {
-        super(props);
-
-        const { title, description, message } = props;
-
-        this.state = {
-            title,
-            description,
-            message,
-            name: "",
-            countCoffees: 1,
-            loading: true,
-        };
-
-        if (process.browser) {
-            const localStorageDarkMode = window.localStorage.getItem(
-                "darkMode"
-            );
-
-            if (localStorageDarkMode) {
-                document.body.dataset.theme = localStorageDarkMode;
-            } else {
-                const prefersDark = window.matchMedia(
-                    "(prefers-color-scheme: dark)"
-                ).matches;
-
-                const theme = prefersDark ? "dark" : "light";
-
-                window.localStorage.setItem("darkMode", theme);
-                document.body.dataset.theme = theme;
-            }
-        }
-    }
-
-    sendCoffee = async () => {
-        const { name, message, countCoffees } = this.state;
-
-        this.setState({
+        setState({
+            ...state,
             loading: true,
         });
 
-        const url = `${process.env.URL}/api/send_coffee`;
-
-        const result = await axios.post(url, {
+        const { mercadoPagoLink } = await API.sendCoffee({
             name,
             message,
-            countCoffees: countCoffees || 1,
+            countCoffees,
         });
 
-        window.location.href = result.data.mercadoPagoLink;
+        window.location.href = mercadoPagoLink;
     };
 
-    setCount = value => {
-        this.setState({
+    const setCount = value => {
+        setState({
+            ...state,
             countCoffees: value < 1 ? 1 : value,
         });
     };
 
-    handleFormChange = e => {
-        this.setState({
+    const handleFormChange = e => {
+        setState({
+            ...state,
             name: e.target.value,
         });
     };
 
-    render() {
-        const { countCoffees, name, title, description } = this.state;
+    const { countCoffees, name } = state;
 
-        return (
-            <div className={styles.main}>
-                <div className={styles.modalContainer}>
-                    <ProfileImg imgSrc={PROFILE_PHOTO} />
+    return (
+        <div className={styles.main}>
+            <div className={styles.modalContainer}>
+                <ProfileImg imgSrc={PROFILE_PHOTO} />
 
-                    <div className={styles.contentContainer}>
-                        <RedirectIcon url="/" />
+                <div className={styles.contentContainer}>
+                    <RedirectIcon url="/" />
 
-                        <h1 className={styles.title}>{title}</h1>
-                        <h3 className={styles.description}>{description}</h3>
+                    <h1 className={styles.title}>{title}</h1>
+                    <h3 className={styles.description}>{description}</h3>
 
-                        <CoffePicker
-                            countCoffees={countCoffees}
-                            setCount={this.setCount}
-                        />
+                    <CoffePicker
+                        countCoffees={countCoffees}
+                        setCount={setCount}
+                    />
 
-                        <input
-                            className={styles.input}
-                            placeholder="Nombre o @Twitter (opcional)"
-                            value={name}
-                            onChange={this.handleFormChange}
-                            type="text"
-                        />
-                        <button
-                            className={styles.submit}
-                            onClick={this.sendCoffee}
-                        >
-                            Invitame {countCoffees}{" "}
-                            {countCoffees > 1 ? "cafés" : "café"} ($
-                            {countCoffees * COFFEE_PRICE})
-                        </button>
-                    </div>
+                    <input
+                        className={styles.input}
+                        placeholder="Nombre o @Twitter (opcional)"
+                        value={name}
+                        onChange={handleFormChange}
+                        type="text"
+                    />
+                    <button className={styles.submit} onClick={sendCoffee}>
+                        Invitame {countCoffees}{" "}
+                        {countCoffees > 1 ? "cafés" : "café"} ($
+                        {countCoffees * COFFEE_PRICE})
+                    </button>
                 </div>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
+
+CustomCoffee.getInitialProps = async ({ query }) => {
+    const title = query.title || "";
+    const description = query.description || "";
+    const message = query.message || "";
+
+    return { title, description, message };
+};
 
 ProfileImg.propTypes = {
     imgSrc: PropTypes.string,
@@ -149,6 +115,12 @@ ProfileImg.propTypes = {
 
 RedirectIcon.propTypes = {
     url: PropTypes.string,
+};
+
+CustomCoffee.propTypes = {
+    title: PropTypes.string,
+    description: PropTypes.string,
+    message: PropTypes.string,
 };
 
 export default CustomCoffee;

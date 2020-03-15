@@ -21,6 +21,18 @@ export const fetchCoffees = async query => {
     return data;
 };
 
+export const sendCoffee = async ({ name, message, countCoffees }) => {
+    const url = `${BASE_URL}/send_coffee`;
+
+    const { data } = await axios.post(url, {
+        name,
+        message,
+        countCoffees: countCoffees || 1,
+    });
+
+    return data;
+};
+
 export const sendAnswer = async ({ idCoffee, answer, password }) => {
     const url = `${BASE_URL}/send_answer`;
 
