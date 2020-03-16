@@ -55,7 +55,7 @@ export const deleteCoffee = async ({ idCoffee, password }) => {
 export const getCustomCoffeeQR = async ({ title, description, message }) => {
     const url = `${BASE_URL}/custom-coffee/get_qr`;
 
-    const { data } = await axios.get(url, {
+    const { data } = await axios.post(url, {
         title,
         description,
         message,
