@@ -36,6 +36,7 @@
         "node-sass": "^4.13.1",
         "nodemon": "^2.0.2",
         "prop-types": "^15.7.2",
+        "qrcode": "^1.4.4",
         "react": "^16.13.0",
         "react-dom": "^16.13.0",
         "react-twitter-widgets": "^1.7.1"
