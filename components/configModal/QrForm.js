@@ -19,6 +19,8 @@ const QrForm = ({ setView }) => {
         description: "",
         message: "",
     });
+    
+    const { title, description, message } = form;
 
     const handleChange = ({ target }) => {
         setForm({
@@ -33,11 +35,9 @@ const QrForm = ({ setView }) => {
             description,
             message,
         });
-        console.log(qr);
+        
         setQr(qr);
     };
-
-    const { title, description, message } = form;
 
     return (
         <div>
