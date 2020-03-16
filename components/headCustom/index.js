@@ -12,18 +12,21 @@ const HeadCustom = ({ share }) => (
     <Head>
         <meta
             property="og:url"
-            content={`${process.env.URL}${
+            content={`${URL}${
                 share && share._id ? "/coffee/" + share._id : ""
             }`}
         />
-        <meta property="og:title" content="Damián Catanzaro | Cafecito" />
+        <meta
+            property="og:title"
+            content={`${FIRST_NAME} ${LAST_NAME} | Cafecito`}
+        />
         <meta name="og:description" content="" />
         <meta property="og:site_name" content="Cafecito" />
 
         {share && share._id && (
             <meta
                 property="og:image"
-                content={`${process.env.URL}/static/imagesCoffee/${share._id}.png`}
+                content={`${URL}/static/imagesCoffee/${share._id}.png`}
             />
         )}
 

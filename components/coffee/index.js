@@ -3,11 +3,14 @@ import style from "./style.scss";
 import PropTypes from "prop-types";
 import dayjs from "dayjs";
 
+import { cafeConfig } from "../../config";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShareAlt } from "@fortawesome/free-solid-svg-icons";
 
 import { sendAnswer, deleteCoffee } from "../../utils/api";
 const API = { sendAnswer, deleteCoffee };
+const { SHOW_DATE_COFFEE } = cafeConfig;
 
 const Coffee = ({ setShare, coffee, loadNewCoffees, password, isAdmin }) => {
     const [isOpenTextInput, setIsOpenTextInput] = useState(false);
@@ -42,8 +45,6 @@ const Coffee = ({ setShare, coffee, loadNewCoffees, password, isAdmin }) => {
 
         loadNewCoffees();
     };
-
-    const { SHOW_DATE_COFFEE } = process.env;
 
     return (
         <section className={style.coffeeContainer}>

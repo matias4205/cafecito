@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import style from "./style.scss";
 
-import axios from "axios";
+import { sendCoffee } from "../../utils/api";
+
+const API = { sendCoffee };
 
 const InputText = () => {
     const [name, setName] = useState("");
@@ -13,15 +15,13 @@ const InputText = () => {
     const sendCoffee = async () => {
         setLoading(true);
 
-        const url = `${process.env.URL}/api/send_coffee`;
-
-        const result = await axios.post(url, {
+        const { mercadoPagoLink } = await API.sendCoffee({
             name,
             message,
-            countCoffees: countCoffees || 1,
+            countCoffees,
         });
 
-        window.location.href = result.data.mercadoPagoLink;
+        window.location.href = mercadoPagoLink;
     };
 
     const tmpCountCoffees = countCoffees ? countCoffees : 1;
