@@ -1,9 +1,13 @@
 const axios = require("axios");
 
+const { config } = require("../config");
+
+const { URL, ACCESS_KEY_MP } = config;
+
 class MercadoPagoService {
     createPayment = async (title, price, coffeeId) => {
         const result = await axios.post(
-            `https://api.mercadopago.com/checkout/preferences?access_token=${process.env.ACCESS_KEY_MP}`,
+            `https://api.mercadopago.com/checkout/preferences?access_token=${ACCESS_KEY_MP}`,
             {
                 items: [
                     {
@@ -17,7 +21,7 @@ class MercadoPagoService {
                     coffeeId,
                 },
                 back_urls: {
-                    success: "https://cafecito.mtprz.dev",
+                    success: `https://${URL}`,
                 },
                 auto_return: "approved",
                 payment_methods: {
@@ -32,7 +36,7 @@ class MercadoPagoService {
 
     getPayment = async collectionId => {
         const result = await axios.get(
-            `https://api.mercadopago.com/v1/payments/${collectionId}?access_token=${process.env.ACCESS_KEY_MP}`
+            `https://api.mercadopago.com/v1/payments/${collectionId}?access_token=${ACCESS_KEY_MP}`
         );
 
         return result.data;

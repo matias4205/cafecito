@@ -1,48 +1,46 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-
-import style from "./style.scss";
 import { Follow } from "react-twitter-widgets";
+
+import { cafeConfig } from "../../config";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon as moonSolid } from "@fortawesome/free-solid-svg-icons";
 import { faMoon as moonRegular } from "@fortawesome/free-regular-svg-icons";
 
-const Header = ({ countCoffees, prefersDark }) => {
-    const [darkMode, setDarkMode] = useState("");
+import style from "./style.scss";
 
-    useEffect(() => {
-        if (!darkMode) {
-            setDarkMode(prefersDark);
-        }
+const { TWITTER, PROFILE_PHOTO } = cafeConfig;
 
-        window.localStorage.setItem("darkMode", darkMode);
-        document.body.dataset.theme = darkMode || prefersDark;
-    }, [darkMode]);
+const Header = ({ countCoffees, prefersDark, ...props }) => {
+    const { setTheme } = props;
 
     return (
         <header className={style.headerContainer}>
             <div className={style.header}>
-                <div className={style.profileImg}></div>
+                <div className={style.profileImg}>
+                    <img src={PROFILE_PHOTO} alt="" />
+                </div>
                 <div className={style.informationContainer}>
-                    <div className={style.name}>@MatiasPerz_</div>
+                    <div className={style.name}>{`@${TWITTER}`}</div>
                     <div className={style.countCoffees}>
                         {countCoffees} cafecitos ☕️
                     </div>
                 </div>
 
                 <FontAwesomeIcon
-                    icon={darkMode == "dark" ? moonSolid : moonRegular}
+                    key={Math.random()}
+                    icon={prefersDark === "dark" ? moonSolid : moonRegular}
                     className={style.darkMode}
                     onClick={() => {
-                        setDarkMode(darkMode === "dark" ? "light" : "dark");
+                        setTheme(prefersDark === "dark" ? "light" : "dark");
                     }}
                     width="22"
                 />
             </div>
 
             <div className={style.twitter}>
-                <Follow username="matiasperz_" />
+                <Follow username={TWITTER} />
             </div>
         </header>
     );
@@ -51,6 +49,7 @@ const Header = ({ countCoffees, prefersDark }) => {
 Header.propTypes = {
     countCoffees: PropTypes.number,
     prefersDark: PropTypes.string,
+    setTheme: PropTypes.func,
 };
 
 export default Header;

@@ -3,47 +3,61 @@ import PropTypes from "prop-types";
 
 import Head from "next/head";
 
+import { cafeConfig, config } from "../../config";
+
+const { TWITTER, FIRST_NAME, LAST_NAME } = cafeConfig;
+const { URL } = config;
+
 const HeadCustom = ({ share }) => (
     <Head>
         <meta
             property="og:url"
-            content={`${process.env.URL}${
+            content={`${URL}${
                 share && share._id ? "/coffee/" + share._id : ""
             }`}
         />
-        <meta property="og:title" content="Damián Catanzaro | Cafecito" />
+        <meta
+            property="og:title"
+            content={`${FIRST_NAME} ${LAST_NAME} | Cafecito`}
+        />
         <meta name="og:description" content="" />
         <meta property="og:site_name" content="Cafecito" />
 
         {share && share._id && (
             <meta
                 property="og:image"
-                content={`${process.env.URL}/static/imagesCoffee/${share._id}.png`}
+                content={`${URL}/static/imagesCoffee/${share._id}.png`}
             />
         )}
 
         <meta property="og:type" content="website" />
         <meta name="robots" content="noodp" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@matiasperz_" />
-        <meta property="twitter:title" content="Matias Perez | Cafecito" />
-        <meta name="twitter:creator" content="@matiasperz_" />
+        <meta name="twitter:site" content={`@${TWITTER}`} />
+        <meta
+            property="twitter:title"
+            content={`${FIRST_NAME} ${LAST_NAME} | Cafecito`}
+        />
+        <meta name="twitter:creator" content={`@${TWITTER}`} />
         <meta name="twitter:description" content="" />
 
         {share && share._id && (
             <meta
                 name="twitter:image"
-                content={`${process.env.URL}/static/imagesCoffee/${share._id}.png`}
+                content={`${URL}/static/imagesCoffee/${share._id}.png`}
             />
         )}
 
-        <meta itemProp="name" content="Matias Perez | Cafecito" />
+        <meta
+            itemProp="name"
+            content={`${FIRST_NAME} ${LAST_NAME} | Cafecito`}
+        />
         <meta itemProp="description" content="" />
 
         {share && share._id && (
             <meta
                 itemProp="image"
-                content={`${process.env.URL}/static/imagesCoffee/${share._id}.png`}
+                content={`${URL}/static/imagesCoffee/${share._id}.png`}
             />
         )}
     </Head>

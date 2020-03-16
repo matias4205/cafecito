@@ -1,3 +1,8 @@
+const { cafeConfig, config } = require("../config");
+
+const { FIRST_NAME, LAST_NAME } = cafeConfig;
+const { PASSWORD_EDITOR } = config;
+
 class CoffeeController {
     constructor(telegram, coffeeService, mercadoPagoService) {
         this.telegram = telegram;
@@ -10,7 +15,7 @@ class CoffeeController {
     sendAnswer = async (req, res) => {
         const { answer, idCoffee, password } = req.body;
 
-        if (password != process.env.PASSWORD_EDITOR) {
+        if (password != PASSWORD_EDITOR) {
             return res.json({});
         }
 
@@ -40,7 +45,7 @@ class CoffeeController {
         });
 
         const paymentLink = await this.mercadoPagoService.createPayment(
-            "Cafecito | Matias Perez",
+            `Cafecito | ${FIRST_NAME} ${LAST_NAME}`,
             this.coffeePrice * countCoffees,
             result._id
         );
@@ -53,7 +58,7 @@ class CoffeeController {
     deleteCoffee = async (req, res) => {
         const { idCoffee, password } = req.body;
 
-        if (password != process.env.PASSWORD_EDITOR) {
+        if (password != PASSWORD_EDITOR) {
             return res.json({});
         }
 

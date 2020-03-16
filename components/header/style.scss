@@ -37,10 +37,15 @@
     .profileImg {
         width: 80px;
         height: 80px;
-        background-image: url("https://avatars2.githubusercontent.com/u/43894343?s=460&v=4");
         background-repeat: no-repeat;
         background-size: cover;
         border-radius: 100%;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            object-fit: cover;
+        }
     }
 
     .informationContainer {

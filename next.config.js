@@ -1,19 +1,14 @@
-const dotenv = require("dotenv");
-const isDev = process.env.NODE_ENV !== "production";
-
-const envFile = isDev ? `.env.${process.env.NODE_ENV}` : ".env";
-dotenv.config({ path: envFile });
-
 const withSass = require("@zeit/next-sass");
 const withCSS = require("@zeit/next-css");
+
+const { config, cafeConfig } = require("./server/config");
 
 module.exports = withCSS(
     withSass({
         env: {
+            ...cafeConfig,
+            URL: config.URL,
             BRANCH: process.env.BRANCH,
-            URL: process.env.URL,
-            SHOW_DATE_COFFEE:
-                process.env.SHOW_DATE_COFFEE === "true" ? true : false,
         },
         cssModules: true,
         cssLoaderOptions: {
