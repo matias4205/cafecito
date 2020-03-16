@@ -65,7 +65,7 @@ app.prepare().then(() => {
     server.post("/api/delete_coffee", CoffeeInstance.deleteCoffee);
     server.get("/api/coffees", CoffeeInstance.getCoffees);
     server.get("/api/get_qr", QrControllerInstance.getCafecitoQr);
-    server.get(
+    server.post(
         "/api/custom-coffee/get_qr",
         QrControllerInstance.getCustomCoffeeQr
     );

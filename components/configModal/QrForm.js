@@ -33,7 +33,7 @@ const QrForm = ({ setView }) => {
             description,
             message,
         });
-        console.log(qr);
+
         setQr(qr);
     };
 
