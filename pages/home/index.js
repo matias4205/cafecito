@@ -8,6 +8,7 @@ import Coffee from "../../components/coffee";
 import Post from "../../components/post";
 import ThanksModal from "../../components/thanksModal";
 import ShareModal from "../../components/shareModal";
+import ConfigModal from "../../components/configModal";
 
 import { useTheme } from "../../hooks/useTheme";
 
@@ -39,6 +40,7 @@ const Home = props => {
             password: "",
             openModal: showThankYou,
             openModalShare: coffeeShare && coffeeShare._id ? true : false,
+            openModalConfig: false,
             share: coffeeShare || {},
         };
     });
@@ -73,7 +75,14 @@ const Home = props => {
         });
     };
 
-    const { isAdmin, password, openModal, openModalShare, share } = state;
+    const {
+        isAdmin,
+        password,
+        openModal,
+        openModalShare,
+        openModalConfig,
+        share,
+    } = state;
 
     return (
         <>
@@ -81,8 +90,11 @@ const Home = props => {
 
             <Header
                 countCoffees={coffees.countCoffees}
+                isAdmin={isAdmin}
                 prefersDark={theme}
                 setTheme={setTheme}
+                openModalConfig={openModalConfig}
+                openModalCreateEvent={openModalCreateEvent}
             />
 
             <InputText />
@@ -116,6 +128,11 @@ const Home = props => {
             <ShareModal
                 share={share}
                 openModalShare={openModalShare}
+                openModalCreateEvent={openModalCreateEvent}
+            />
+
+            <ConfigModal
+                openModalConfig={openModalConfig}
                 openModalCreateEvent={openModalCreateEvent}
             />
         </>

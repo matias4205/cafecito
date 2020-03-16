@@ -43,6 +43,9 @@ const CoffeeInstance = new CoffeeController(
     MercadoPagoServiceInstance
 );
 
+const QrController = require("./server/controllers/QrController");
+const QrControllerInstance = new QrController();
+
 CoffeeInstance.getCoffeesWithoutImages();
 
 const express = require("express");
@@ -61,6 +64,11 @@ app.prepare().then(() => {
     server.post("/api/send_answer", CoffeeInstance.sendAnswer);
     server.post("/api/delete_coffee", CoffeeInstance.deleteCoffee);
     server.get("/api/coffees", CoffeeInstance.getCoffees);
+    server.get("/api/get_qr", QrControllerInstance.getCafecitoQr);
+    server.get(
+        "/api/custom-coffee/get_qr",
+        QrControllerInstance.getCustomCoffeeQr
+    );
 
     server.get(
         "/api/get_payment_by_coffe/:id",

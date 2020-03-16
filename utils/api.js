@@ -51,3 +51,15 @@ export const deleteCoffee = async ({ idCoffee, password }) => {
         idCoffee,
     });
 };
+
+export const getCustomCoffeeQR = async ({ title, description, message }) => {
+    const url = `${BASE_URL}/custom-coffee/get_qr`;
+
+    const { data } = await axios.get(url, {
+        title,
+        description,
+        message,
+    });
+
+    return data;
+};
