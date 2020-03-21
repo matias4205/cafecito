@@ -30,13 +30,13 @@ const Post = () => (
             <p>
                 Este año tengo como meta comenzar mi blog, en el cual planeo
                 hacer tutoriales de todo lo que voy aprendiendo en el mundo de
-                sistemas (en este momento esta en construccion 🔨).
+                sistemas.
             </p>
 
             <p>
                 <strong>Blog:</strong>{" "}
-                <LinkNewTab to="https://mtprz.dev/blog/">
-                    https://mtprz.dev/blog/
+                <LinkNewTab to="https://blog.mtprz.dev/">
+                    https://blog.mtprz.dev/
                 </LinkNewTab>
             </p>
 
